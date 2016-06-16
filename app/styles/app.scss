@@ -2,3 +2,12 @@
   display: flex;
   justify-content: center;
 }
+
+.country-thumb {
+  p {
+    font-size: 2rem;
+    i {
+      vertical-align: bottom;
+    }
+  }
+}
