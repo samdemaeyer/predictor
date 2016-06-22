@@ -1,3 +1,13 @@
-{{#each teamsWithScores as |teamWithScore|}}
-  {{teamWithScore.team.country}} - {{teamWithScore.score}}
-{{/each}}
+<form onsubmit={{action 'savePrediction'}}>
+  {{#each teamsWithScores as |teamWithScore|}}
+    {{teamWithScore.team.country}} -
+    {{#if teamWithScore.hasScore}}
+      {{teamWithScore.score}}
+    {{else}}
+      {{input type='number' value=teamWithScore.score}}
+    {{/if}}
+  {{/each}}
+  {{#if predictable}}
+    <button type="submit" name="button" class="btn btn-success btn-sm">Save my prediction</button>
+  {{/if}}
+</form>

@@ -6,19 +6,44 @@ moduleForComponent('fixture-scores', 'Integration | Component | fixture scores',
 });
 
 test('it renders', function(assert) {
-  // Set any properties with this.set('myProperty', 'value');
-  // Handle any actions with this.on('myAction', function(val) { ... });
+  let match = {
+    id: 1,
+    name: 'France vs Germany',
+    matches_teams: [{
+      id: 1,
+      match_id: 1,
+      team_id: 1,
+      score: 1
+    }, {
+      id: 2,
+      match_id: 1,
+      team_id: 2,
+      score: 3
+    }]
+  };
 
-  this.render(hbs`{{fixture-scores}}`);
+  let teams = {
+    fetch() {
+      return {
+        then(cb) {
+          cb([{
+            id: 1,
+            country: 'France'
+          }, {
+            id: 2,
+            country: 'Germany'
+          }]);
+        }
+      }
+    }
+  };
 
-  assert.equal(this.$().text().trim(), '');
+    this.set('match', match);
+    this.set('teams', teams);
 
-  // Template block usage:
-  this.render(hbs`
-    {{#fixture-scores}}
-      template block text
-    {{/fixture-scores}}
-  `);
+    this.render(hbs`
+      {{fixture-scores match=match teams=teams}}
+    `);
 
-  assert.equal(this.$().text().trim(), 'template block text');
+    assert.equal(this.$().text().trim().replace(/[\s\n]+/g, ' '), `France - 1 Germany - 3`);
 });

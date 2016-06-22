@@ -6,5 +6,8 @@ export default Ember.Service.extend({
       this.cache = $.getJSON('/teams');
     }
     return this.cache;
+  },
+  save(payload) {
+    Ember.$.post('/predictions', payload);
   }
 });
